@@ -16,6 +16,7 @@ int StackSize(Stack *s);
 void push(Stack *s, Stack_Element data);
 Stack_Element pop(Stack *s);
 void ClearStack(Stack *s);
+int StackTop(Stack *s);
 void TraverseStack(Stack *s);
 
 

@@ -49,6 +49,15 @@ void ClearStack(Stack *s){
   s->top=-1;
 }
 
+int StackTop(Stack *s){
+ if(Is_StackEmpty(s)){
+    printf("Stack underflow \n");
+    return -1;
+ }else{
+   return s->arr[s->top];
+ }
+}
+
 void TraverseStack(Stack *s){
  if(Is_StackEmpty(s)){
     printf("Stack under flow \n" );
