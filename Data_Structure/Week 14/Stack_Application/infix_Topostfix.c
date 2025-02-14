@@ -70,12 +70,55 @@ void infixToPost(const char *infix, char *postfix) {
     postfix[j] = '\0';
 }
 
+int Evaluatepostfix(const char* postfix) {
+    Stack value;
+    CreateStack(&value);
+    int result = 0;
+    char num[10];
+    int numIndex = 0;
+
+    for (int i = 0; postfix[i]; i++) {
+    	int output = postfix[i];
+
+        if (isdigit(output)) {
+            num[numIndex++] = output;
+        } else if (output == ' ') {
+            if (numIndex > 0) {
+                num[numIndex] = '\0';
+                push(&value,atoi(num) ); // push the number after converting it from string to number
+                numIndex = 0;
+            }
+        } else {              // the output is operator
+        	int val1 = pop(&value);
+        	int val2 = pop(&value);
+        	int tempResult;
+
+            switch (output) {
+                case '+': tempResult = val2 + val1; break;
+                case '-': tempResult = val2 - val1; break;
+                case '%': tempResult = val2 % val1; break;
+                case '/': tempResult = val2 / val1; break;
+                case '*': tempResult = val2 * val1; break;
+                case '^': tempResult = val2 ^ val1; break;
+                default:  tempResult = 0; break;
+            }
+            push(&value,tempResult );
+        }
+    }
+
+    result = pop(&value);
+    return result;
+}
+
+
 int main() {
     char infix[] = "3+5*2/(7-2)";
     char postfix[50];
-
+     int result=0;
     infixToPost(infix, postfix);
+    result= Evaluatepostfix(postfix);
     printf("Postfix: %s\n", postfix);
+    printf("The final result: %d\n",result);
 
     return 0;
 }
